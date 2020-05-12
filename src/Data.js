@@ -8,7 +8,7 @@ let Data = {
 
 		{image:'brick-texture.jpg', price: 150},
 		{image:'coswick-oak-natural.jpg', price: 30},
-		{image:'tile.jpg', price: 0},
+		{image:'tile.jpg', price: 48},
 		{image:'crossed-out.png', price: 0}
 
 	]

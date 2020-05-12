@@ -86,14 +86,14 @@ function onDocumentMouseClick( event ) {
 				// texture.wrapT = THREE.RepeatWrapping;
 				// texture.repeat.set( 4, 4 );
 				materials[ faceIndex ] = new THREE.MeshBasicMaterial( { map: texture } );
+				materials[ faceIndex ].userData = picName;
 			}
 			else {
 
 				materials[ faceIndex ] = new THREE.MeshBasicMaterial( { color: new THREE.Color( 'lightgrey' ) } );
+				materials[ faceIndex ].userData = {};
 
 			}
-
-			materials[ faceIndex ].userData = picName;
 
 			calculator.materialsArea.areas = calculator.getMaterialsArea( materials, cube );
 

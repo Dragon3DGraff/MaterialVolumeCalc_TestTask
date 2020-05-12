@@ -34,7 +34,7 @@ class Calculator {
 	getMaterialsArea( materialsArray, object ){
 
 		let array = [];
-		let setOfTextures = new Set();
+
 		
 		let images = materialsArray.map( function( item ) {			
 	
@@ -42,17 +42,14 @@ class Calculator {
 			if ( item ) {
 				source = item.userData;
 			}
-			if ( typeof source === "string" && source !== 'crossed-out.png'){
 
-				setOfTextures.add( source );
-
-			}
 			return source;
 	
 		});
 	
 		let facesArray = object.geometry.faces;
 		let facesInfo = facesArray.map( function( item ){
+
 			let faceInfo = {};
 	
 			faceInfo.materialIndex = item.materialIndex;
@@ -63,14 +60,16 @@ class Calculator {
 	
 		});
 
-		for (let img of setOfTextures){
+		for (let img of Data.textures){
 
-			console.log( img );
+			if ( img.image !== 'crossed-out.png' ) {
 
-			let totalArea = facesInfo.filter( face => face.image === img)
-			.reduce( (sum, current) => sum + Math.floor( 1000 * current.area)/ 1000, 0);
-		
-			array.push({image: img, area: totalArea });
+				let totalArea = facesInfo.filter( face => face.image === img.image)
+				.reduce( (sum, current) => sum + Math.floor( 1000 * current.area)/ 1000, 0);
+			
+				array.push({image: img.image, area: totalArea });
+
+			}
 
 		}
 
@@ -79,6 +78,10 @@ class Calculator {
 	}
 
 	fillTable ( materialsArea ) {
+
+		if ( materialsArea.areas.length ) {
+
+		}
 
 		materialsArea.areas.forEach( ( item ) => {
 	
