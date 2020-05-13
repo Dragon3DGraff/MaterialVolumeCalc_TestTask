@@ -58,6 +58,10 @@ clickableObjects.push( cube );
 let axesHelper = new THREE.AxesHelper( 5 );
 scene.add( axesHelper );
 
+let edges = new THREE.EdgesGeometry( cube.geometry );
+var line = new THREE.LineSegments( edges, new THREE.LineBasicMaterial( { color: 0xffffff } ) );
+scene.add( line );
+
 
 
 
