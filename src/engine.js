@@ -28,6 +28,7 @@ let currentTexture = { img: '' };
 
 window.addEventListener('resize', onWindowResize, false);
 document.addEventListener('mousedown', onDocumentMouseClick, false);
+document.addEventListener('touchstart', onDocumentTouchStart, false);
 
 function onWindowResize() {
 
@@ -106,6 +107,50 @@ function onDocumentMouseClick( event ) {
 		}
 
 	}
+
+}
+
+function onDocumentTouchStart( event ) {
+
+	let screenPoint = getScreenPoint( event.touches[0] );
+
+	raycaster.setFromCamera(screenPoint, camera);
+	
+	let intersects = raycaster.intersectObjects( clickableObjects );
+
+	if ( intersects.length > 0 ){
+
+		let faceIndex = intersects[0].face.materialIndex;
+
+		if ( currentTexture.img ){
+
+			let texture;
+			let picName = ((currentTexture.img).split('/')).pop();
+
+			if ( picName !== 'crossed-out.png' ) {
+
+				texture = new THREE.TextureLoader().load( currentTexture.img );
+				// texture.wrapS = THREE.RepeatWrapping;
+				// texture.wrapT = THREE.RepeatWrapping;
+				// texture.repeat.set( 4, 4 );
+				materials[ faceIndex ] = new THREE.MeshBasicMaterial( { map: texture } );
+				materials[ faceIndex ].userData = picName;
+			}
+			else {
+
+				materials[ faceIndex ] = new THREE.MeshBasicMaterial( { color: new THREE.Color( 'lightgrey' ) } );
+				materials[ faceIndex ].userData = {};
+
+			}
+
+			calculator.materialsArea.areas = calculator.getMaterialsArea( materials, cube );
+
+			calculator.fillTable ( calculator.materialsArea );
+
+		}
+
+	}
+
 
 }
 

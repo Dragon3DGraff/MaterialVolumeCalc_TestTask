@@ -20,34 +20,36 @@ let leftMenu = createElement( document.body, 'div', 'leftMenu');
 let title = createElement( leftMenu, 'div', 'title');
 title.innerHTML = 'Калькулятор объемов';
 
-let formInput = createElement( leftMenu, 'form', 'formInput');
+let formInput = createElement( leftMenu, 'div', 'formInput');
 
-let textWidthInput = createElement( formInput, 'label', 'labelClass');
+let inputDiv = createElement ( formInput, 'div', 'inputDiv');
+
+let textWidthInput = createElement( inputDiv, 'label', 'labelClass');
 textWidthInput.innerHTML = 'Ширина';
 
-let widthInput = createElement( formInput, 'input', 'inputClass');
+let widthInput = createElement( inputDiv, 'input', 'inputClass');
 widthInput.type = 'number';
 widthInput.value = 5;
 widthInput.min = 0;
 widthInput.step = 0.1;
 
 
-
-let textHeightInput = createElement( formInput, 'label', 'labelClass');
+inputDiv = createElement ( formInput, 'div', 'inputDiv');
+let textHeightInput = createElement( inputDiv, 'label', 'labelClass');
 textHeightInput.innerHTML = 'Высота';
 
-let heightInput = createElement( formInput, 'input', 'inputClass');
+let heightInput = createElement( inputDiv, 'input', 'inputClass');
 heightInput.type = 'number';
 heightInput.value = 5;
 heightInput.min = 0;
 heightInput.step = 0.1;
 
 
-
-let textDepthtInput = createElement( formInput, 'label', 'labelClass');
+inputDiv = createElement ( formInput, 'div', 'inputDiv');
+let textDepthtInput = createElement( inputDiv, 'label', 'labelClass');
 textDepthtInput.innerHTML = 'Глубина';
 
-let depthtInput = createElement( formInput, 'input', 'inputClass');
+let depthtInput = createElement( inputDiv, 'input', 'inputClass');
 depthtInput.type = 'number';
 depthtInput.value = 5;
 depthtInput.min = 0;
@@ -127,19 +129,19 @@ depthtInput.addEventListener( 'input', (e) => {
 let exportButtonDiv = createElement( leftMenu, 'div', 'exportButtonDiv');
 
 let exportGLTFButton = createElement( exportButtonDiv, 'button', 'exportButton');
-exportGLTFButton.innerHTML = 'Export to glTF';
+exportGLTFButton.innerHTML = 'glTF';
 exportGLTFButton.addEventListener( 'click', exportGLTF);
 
 let exportSTLButton = createElement( exportButtonDiv, 'button', 'exportButton');
-exportSTLButton.innerHTML = 'Export to STL';
+exportSTLButton.innerHTML = 'STL';
 exportSTLButton.addEventListener( 'click', exportSTLBinary);
 
 let exportOBJButton = createElement( exportButtonDiv, 'button', 'exportButton');
-exportOBJButton.innerHTML = 'Export to OBJ';
+exportOBJButton.innerHTML = 'EOBJ';
 exportOBJButton.addEventListener( 'click', exportOBJ);
 
 let exportPLYButton = createElement( exportButtonDiv, 'button', 'exportButton');
-exportPLYButton.innerHTML = 'Export to PLY';
+exportPLYButton.innerHTML = 'PLY';
 exportPLYButton.addEventListener( 'click', exportPLY);
 
 

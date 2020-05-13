@@ -38,6 +38,8 @@ body {
 
 .title{
 
+	font-size: 0.8rem;
+
 	width: 100%;
 	height: 25px;
 	text-align: center;
@@ -53,16 +55,16 @@ body {
 	left: 2px;
 	padding: 0px;
 	margin: 0px;
-	width: 96%;
+	width: 93%;
 }
 
 .exportButtonDiv {
 
 	display: inline;
 
-	position: absolute;
-	bottom: 20px;
-	left: 0px;
+	/* position: absolute; */
+	/* bottom: 20px; */
+	/* left: 0px; */
 
 }
 
@@ -101,6 +103,8 @@ body {
 
 .labelClass{
 
+	font-size: 0.8rem;
+
 	font-weight: bold;
 
 }
@@ -128,7 +132,7 @@ body {
 .thClass {
 
 	height: 18px;
-	font-size: 13px;
+	font-size: 0.6rem;
 	padding: 3px;
 	margin: 0px;
 	border-style: solid;
@@ -148,4 +152,89 @@ body {
 	padding: 0px;
 	height: 25px;
 	text-align: center;
+}
+
+@media (max-width: 400px), (max-height: 330px) {
+
+	
+.textureSelect {
+
+	display: grid;
+	left: 100px;
+
+}
+
+
+.leftMenu {
+
+	width: 100px;
+
+}
+
+.thClass {
+
+	font-size: 0.3rem;
+	height: 8px;
+
+}
+
+.imgClass {
+
+	height: 30px;
+	width: 30px;
+
+}
+
+
+.labelClass{
+
+	display: inline;
+
+	font-size: 5px;
+
+}
+
+.title{
+
+	font-size: 7px;
+	height: 10px;
+
+}
+
+.imgTable{
+
+	height: 18px;
+	width: 18px;	
+
+}
+
+.tdClass {
+
+	font-size: 11px;
+	height: 18px;
+
+}
+
+.formInput {
+
+	display: flex;
+	width: 100%;
+
+}
+.inputDiv {
+
+	
+	display: grid;
+	text-align: center;
+
+	
+}
+.inputClass{
+
+	position: relative;
+	font-size: 0.5rem;
+	height: 9px;
+	width: 75%;
+}
+
 }
