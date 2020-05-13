@@ -60,7 +60,8 @@ scene.add( axesHelper );
 
 let edges = new THREE.EdgesGeometry( cube.geometry );
 var line = new THREE.LineSegments( edges, new THREE.LineBasicMaterial( { color: 0xffffff } ) );
-scene.add( line );
+line.name = 'wire';
+cube.add( line );
 
 
 

@@ -332,6 +332,13 @@ function updateObject( parameterName, parameterValue, entity ) {
 			entity.geometry.dispose();
 			entity.geometry = newGeom;
 
+			let wire = entity.getObjectByName( 'wire');
+
+			wire.geometry.dispose();
+
+			wire.geometry = new THREE.EdgesGeometry( entity.geometry );
+
+
 }
 
 export { UI }
