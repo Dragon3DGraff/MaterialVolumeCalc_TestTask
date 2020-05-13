@@ -66,6 +66,10 @@ body {
 
 }
 
+.exportButton{
+	width: 50%;
+}
+
 .textureSelect {
 
 	position: absolute;

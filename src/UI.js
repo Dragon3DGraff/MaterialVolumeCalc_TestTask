@@ -7,6 +7,8 @@ import { MainScene } from './engine.js';
 import { calculator } from './Calculator.js'
 import { GLTFExporter } from '../node_modules/three/examples/jsm/exporters/GLTFExporter.js';
 import { STLExporter } from '../node_modules/three/examples/jsm/exporters/STLExporter.js';
+import { OBJExporter } from '../node_modules/three/examples/jsm/exporters/OBJExporter.js';
+import { PLYExporter  } from '../node_modules/three/examples/jsm/exporters/PLYExporter.js';
 import { Data } from './Data.js';
 
 
@@ -132,6 +134,14 @@ let exportSTLButton = createElement( exportButtonDiv, 'button', 'exportButton');
 exportSTLButton.innerHTML = 'Export to STL';
 exportSTLButton.addEventListener( 'click', exportSTLBinary);
 
+let exportOBJButton = createElement( exportButtonDiv, 'button', 'exportButton');
+exportOBJButton.innerHTML = 'Export to OBJ';
+exportOBJButton.addEventListener( 'click', exportOBJ);
+
+let exportPLYButton = createElement( exportButtonDiv, 'button', 'exportButton');
+exportPLYButton.innerHTML = 'Export to PLY';
+exportPLYButton.addEventListener( 'click', exportPLY);
+
 
 
 let textureSelect = createElement( leftMenu, 'div', 'textureSelect');
@@ -171,26 +181,102 @@ function createElement ( parent, type, className ) {
 
 function exportGLTF(){
 
+	// let facesArray = MainScene.cube.geometry.faces;
+
+	// console.log( MainScene.cube )
+
+
+	// facesArray.map( function( item, index ){
+
+	// 	let testGeometry = calculator.createPolygonByFace( item, MainScene.cube );
+	// 	testGeometry.uvsNeedUpdate = true;
+	// 	testGeometry.computeVertexNormals ();
+	// 	testGeometry.computeFaceNormals ();
+	// 	testGeometry.faceVertexUvs = MainScene.cube.geometry.faceVertexUvs;
+	// 	// testGeometry.sortFacesByMaterialIndex ( );
+	// 	// testGeometry.materialIndex = item.materialIndex;
+	// 	console.log( testGeometry )
+
+	// 	let material;
+	// 	let image
+
+	// 	if ( typeof item.userData === 'string'){
+
+	// 		image = item.userData;
+
+	// 	}
+	// 	else{
+
+	// 		image = 'empty.png';
+
+	// 	}
+
+	// 	let texture = new THREE.TextureLoader().load( image, () =>{
+	// 	material = MainScene.cube.material[ item.materialIndex ];
+	// 	material.map = texture;
+		
+
+	// 	let testMesh = new THREE.Mesh( testGeometry, material );
+	// 	MainScene.scene.add( testMesh );
+
+	// 	});
+		
+
+	// });
+
+	// // MainScene.scene.remove( MainScene.cube );
+
 
 	let gltfExporter = new GLTFExporter();
 
-	gltfExporter.parse( MainScene.cube, function ( result ) {
+	gltfExporter.parse( MainScene.scene, function ( result ) {
 
-	let gltf = JSON.stringify( result, null, 2 );
+		let gltf = JSON.stringify( result, null, 2 );
 
-	let blob = new Blob( [gltf], {type: 'text/plain'});
+		let blob = new Blob( [gltf], {type: 'text/plain'});
 
-	saveFile( blob , 'Scene', 'gltf' );
+		saveFile( blob , 'Scene', 'gltf' );
 
-	}, { truncateDrawRange  : false } );
+	} );
 
+}
+
+function exportOBJ() {
+
+	let objExporter = new OBJExporter();
+
+	let result = objExporter.parse( MainScene.scene);
+
+		// let obj = JSON.stringify( result, null, 2 );
+
+		let blob = new Blob( [result], {type: 'text/plain'});
+
+		saveFile( blob , 'Scene', 'obj' );
+
+}
+
+function exportPLY() {
+
+	let plyfExporter = new PLYExporter();
+
+	plyfExporter.parse( MainScene.scene, function ( result ) {
+
+		// let ply = JSON.stringify( result, null, 2 );
+
+		let blob = new Blob( [result], {type: 'text/plain'});
+
+		saveFile( blob , 'Scene', 'ply' );
+
+	} );
+
+	
 }
 
 function exportSTLBinary( ) {
 
 	let exporter = new STLExporter();
 
-	let result = exporter.parse( MainScene.cube, { binary: true } );
+	let result = exporter.parse( MainScene.scene, { binary: true } );
 	let blob = new Blob( [result], {type: 'application/octet-stream' });
 
 	saveFile( blob , 'Scene', 'stl' );

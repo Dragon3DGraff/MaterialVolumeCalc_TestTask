@@ -31,34 +31,38 @@ class Calculator {
 
 	}
 
+	createPolygonByFace( face , object ) {
+
+		let aFace = face.a;
+		let aVertex = object.geometry.vertices[aFace];
+
+		let bFace = face.b;
+		let bVertex = object.geometry.vertices[bFace];
+
+		let cFace = face.c;
+		let cVertex = object.geometry.vertices[cFace];
+
+		let geometry = new THREE.Geometry();
+
+		geometry.vertices.push(
+			aVertex,
+			bVertex,
+			cVertex
+			);
+
+		geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
+
+		return geometry;
+
+	}
+
 	getMaterialsArea( materialsArray, object ){
 
 		let array = [];
 
-		
-		let images = materialsArray.map( function( item ) {			
-	
-			let source;
-			if ( item ) {
-				source = item.userData;
-			}
+		let facesInfo = this.getFacesInfo( object, materialsArray );
 
-			return source;
-	
-		});
-	
-		let facesArray = object.geometry.faces;
-		let facesInfo = facesArray.map( function( item ){
 
-			let faceInfo = {};
-	
-			faceInfo.materialIndex = item.materialIndex;
-			faceInfo.area = calculator.getFaceArea ( item, object );
-			faceInfo.image = images[item.materialIndex];
-	
-			return faceInfo;
-	
-		});
 
 		for (let img of Data.textures){
 
@@ -75,6 +79,38 @@ class Calculator {
 
 		return array;
 	
+	}
+
+	getFacesInfo ( object, materialsArray ) {
+
+		let images = materialsArray.map( function( item ) {
+	
+			let source;
+			if ( item ) {
+				source = item.userData;
+			}
+
+			return source;
+	
+		});
+
+		let facesArray = object.geometry.faces;
+
+		let facesInfo = facesArray.map( function( item ){
+
+			let faceInfo = {};
+	
+			faceInfo.materialIndex = item.materialIndex;
+			faceInfo.area = calculator.getFaceArea ( item, object );
+			faceInfo.image = images[item.materialIndex];
+	
+			return faceInfo;
+	
+		});
+
+		return facesInfo;
+
+
 	}
 
 	fillTable ( materialsArea ) {

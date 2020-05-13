@@ -57,6 +57,10 @@ clickableObjects.push( cube );
 let axesHelper = new THREE.AxesHelper( 5 );
 scene.add( axesHelper );
 
+
+
+
+
 camera.position.z = 5;
 camera.position.x = 10;
 camera.position.y = 8;
