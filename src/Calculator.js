@@ -94,6 +94,8 @@ class Calculator {
 	
 		});
 
+		let geometryFromBufferGeometry = new THREE.Geometry();
+
 		let facesArray = object.geometry.faces;
 
 		let facesInfo = facesArray.map( function( item ){

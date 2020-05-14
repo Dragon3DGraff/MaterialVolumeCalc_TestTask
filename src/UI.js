@@ -185,94 +185,17 @@ function createElement ( parent, type, className ) {
 
 function exportGLTF(){
 
-	// let facesArray = MainScene.cube.geometry.faces;
-
-	// console.log( MainScene.cube )
-
-
-	// facesArray.map( function( item, index ){
-
-	// 	let testGeometry = calculator.createPolygonByFace( item, MainScene.cube );
-	// 	testGeometry.uvsNeedUpdate = true;
-	// 	testGeometry.computeVertexNormals ();
-	// 	testGeometry.computeFaceNormals ();
-	// 	testGeometry.faceVertexUvs = MainScene.cube.geometry.faceVertexUvs;
-	// 	// testGeometry.sortFacesByMaterialIndex ( );
-	// 	// testGeometry.materialIndex = item.materialIndex;
-	// 	console.log( testGeometry )
-
-	// 	let material;
-	// 	let image
-
-	// 	if ( typeof item.userData === 'string'){
-
-	// 		image = item.userData;
-
-	// 	}
-	// 	else{
-
-	// 		image = 'empty.png';
-
-	// 	}
-
-	// 	let texture = new THREE.TextureLoader().load( image, () =>{
-	// 	material = MainScene.cube.material[ item.materialIndex ];
-	// 	material.map = texture;
-		
-
-	// 	let testMesh = new THREE.Mesh( testGeometry, material );
-	// 	MainScene.scene.add( testMesh );
-
-	// 	});
-		
-
-	// });
-
-	// // MainScene.scene.remove( MainScene.cube );
-
-
 	let gltfExporter = new GLTFExporter();
 
-	// gltfExporter.parse( MainScene.scene, function ( result ) {
+	gltfExporter.parse( MainScene.scene, function ( result ) {
 
-		// let gltf = JSON.stringify( result, null, 2 );
+		let gltf = JSON.stringify( result, null, 2 );
 
-		// let blob = new Blob( [result], {type: 'text/plain'});
-		// let blob = new Blob( [result], {type: 'application/octet-stream'});
+		let blob = new Blob( [ gltf ], { type: 'text/plain' });
 
+		saveFile( blob , 'Scene', 'gltf' );
 
-		// saveFile( blob , 'Scene', 'glb' );
-
-	// }, { binary: true } );
-
-
-	//==============================
-
-	gltfExporter.parse( MainScene.cube, function ( result ) {
-
-		saveArrayBuffer( result, 'scene.glb' );
-
-	}, { binary: true } );
-
-	var link = document.createElement( 'a' );
-link.style.display = 'none';
-document.body.appendChild( link );
-
-function save( blob, filename ) {
-
-	link.href = URL.createObjectURL( blob );
-	link.download = filename;
-	link.click();
-
-}
-
-
-
-function saveArrayBuffer( buffer, filename ) {
-
-	save( new Blob( [ buffer ], { type: 'application/octet-stream' } ), filename );
-
-}
+	} );
 
 }
 

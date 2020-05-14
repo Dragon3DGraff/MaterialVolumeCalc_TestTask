@@ -17,7 +17,6 @@ init();
 animate();
 
 async function init() {
-	
 
 scene = new THREE.Scene( );
 scene.background = new THREE.Color('#bdd0e9');
@@ -59,16 +58,14 @@ let texturesLoaded = await Promise.all( [
 
 ] );
 
-// console.log( texturesLoaded )
-
 let materials = [
 
-	new THREE.MeshBasicMaterial( {  map: texturesLoaded[0] } ),
-	new THREE.MeshBasicMaterial( {  map: texturesLoaded[1] } ),
-	new THREE.MeshBasicMaterial( {  map: texturesLoaded[2] } ),
-	new THREE.MeshBasicMaterial( {  map: texturesLoaded[2] } ),
-	new THREE.MeshBasicMaterial( {  map: texturesLoaded[2] } ),
-	new THREE.MeshBasicMaterial( {  map: texturesLoaded[2] } )
+	new THREE.MeshBasicMaterial( { color: new THREE.Color( 'lightgrey' ) } ),
+	new THREE.MeshBasicMaterial( { color: new THREE.Color( 'lightgrey' ) } ),
+	new THREE.MeshBasicMaterial( { color: new THREE.Color( 'lightgrey' ) } ),
+	new THREE.MeshBasicMaterial( { color: new THREE.Color( 'lightgrey' ) } ),
+	new THREE.MeshBasicMaterial( { color: new THREE.Color( 'lightgrey' ) } ),
+	new THREE.MeshBasicMaterial( { color: new THREE.Color( 'lightgrey' ) } )
 
 ]
 
@@ -83,7 +80,6 @@ let edges = new THREE.EdgesGeometry( cube.geometry );
 var line = new THREE.LineSegments( edges, new THREE.LineBasicMaterial( { color: 0xffffff } ) );
 line.name = 'wire';
 cube.add( line );
-
 
 camera.position.z = 5;
 camera.position.x = 10;
@@ -110,42 +106,22 @@ function onDocumentMouseClick( event ) {
 			if ( picName !== 'crossed-out.png' ) {
 
 				let texture1 = texturesLoaded.filter( ( item ) => ((item.image.currentSrc).split('/')).pop() === picName );
-				// console.log( texture1[0] )
-
-
-				//  new THREE.TextureLoader().load( currentTexture.img, ( texture ) =>{
 
 					intersects[0].object.material[ faceIndex ] = new THREE.MeshBasicMaterial( { map: texture1[0] } );
-					// materials[ faceIndex ].map = texture;
-					// materials[ faceIndex ].dispose();
-					// materials[ faceIndex ] = new THREE.MeshBasicMaterial( { map: texture1[0] } );
-					// console.log( texture )
 
 					materials[ faceIndex ].userData = picName;
 
-					calculator.materialsArea.areas = calculator.getMaterialsArea( materials, cube );
-
-					calculator.fillTable ( calculator.materialsArea );
-
-				// } );
-				// texture.wrapS = THREE.RepeatWrapping;
-				// texture.wrapT = THREE.RepeatWrapping;
-				// texture.repeat.set( 4, 4 );
-				// materials[ faceIndex ] = new THREE.MeshBasicMaterial( { map: texture } );
-				
 			}
 			else {
 
 				materials[ faceIndex ] = new THREE.MeshBasicMaterial( { color: new THREE.Color( 'lightgrey' ) } );
 				materials[ faceIndex ].userData = {};
 
-				calculator.materialsArea.areas = calculator.getMaterialsArea( materials, cube );
-
-				calculator.fillTable ( calculator.materialsArea );
-
 			}
 
+			calculator.materialsArea.areas = calculator.getMaterialsArea( materials, cube );
 
+			calculator.fillTable ( calculator.materialsArea );
 
 		}
 
@@ -167,17 +143,16 @@ function onDocumentTouchStart( event ) {
 
 		if ( currentTexture.img ){
 
-			let texture;
 			let picName = ((currentTexture.img).split('/')).pop();
 
 			if ( picName !== 'crossed-out.png' ) {
 
-				texture = new THREE.TextureLoader().load( currentTexture.img );
-				// texture.wrapS = THREE.RepeatWrapping;
-				// texture.wrapT = THREE.RepeatWrapping;
-				// texture.repeat.set( 4, 4 );
-				materials[ faceIndex ] = new THREE.MeshBasicMaterial( { map: texture } );
-				materials[ faceIndex ].userData = picName;
+				let texture1 = texturesLoaded.filter( ( item ) => ((item.image.currentSrc).split('/')).pop() === picName );
+
+					intersects[0].object.material[ faceIndex ] = new THREE.MeshBasicMaterial( { map: texture1[0] } );
+
+					materials[ faceIndex ].userData = picName;
+
 			}
 			else {
 
