@@ -72,18 +72,20 @@ header.innerHTML = 'Стоимость';
 
 Data.textures.forEach( (item ) => {
 
-	if (item.image !== 'crossed-out.png' ) {
+	let image = item.image;
+
+	if (item.price !== 0 ) {
 		let row = createElement( tableCalc, 'tr', 'tdClass');
 		let cellImage = createElement( row, 'td', 'tdClass');
 			let imgTable = createElement( cellImage, 'img', 'imgTable');
 			imgTable.src = item.image;
 
 		let cellArea = createElement( row, 'td', 'tdClass');
-		cellArea.id = item.image;
+		cellArea.id = image;
 		cellArea.innerHTML = 0;
 
 		let cellCost = createElement( row, 'td', 'tdClass');
-		cellCost.id = 'cost-' + item.image;
+		cellCost.id = 'cost-' + image;
 		cellCost.innerHTML = 0;
 	}
 
@@ -189,13 +191,13 @@ function exportGLTF(){
 
 	gltfExporter.parse( MainScene.scene, function ( result ) {
 
-		let gltf = JSON.stringify( result, null, 2 );
+		// let gltf = JSON.stringify( result, null, 2 );
 
-		let blob = new Blob( [ gltf ], { type: 'text/plain' });
+		let blob = new Blob( [ result ], { type: 'application/octet-stream' });
 
-		saveFile( blob , 'Scene', 'gltf' );
+		saveFile( blob , 'Scene', 'glb' );
 
-	} );
+	}, { binary: true } );
 
 }
 
@@ -293,7 +295,6 @@ function updateObject( parameterName, parameterValue, entity ) {
 			wire.geometry.dispose();
 
 			wire.geometry = new THREE.EdgesGeometry( entity.geometry );
-
 
 }
 

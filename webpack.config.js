@@ -48,21 +48,9 @@ module.exports = {
 		minify: isProd
 		}),
 		new CopyWebpackPlugin([
-			{ from: path.resolve( __dirname, 'src/coswick-oak-natural.jpg'),
-			 to: path.resolve( __dirname, 'dist/coswick-oak-natural.jpg')
-			},
-			{ from: path.resolve( __dirname, 'src/brick-texture.jpg'),
-			 to: path.resolve( __dirname, 'dist/brick-texture.jpg')
-			},
-			{ from: path.resolve( __dirname, 'src/crossed-out.png'),
-			to: path.resolve( __dirname, 'dist/crossed-out.png')
-		   },
-		   { from: path.resolve( __dirname, 'src/empty.png'),
-			to: path.resolve( __dirname, 'dist/empty.png')
-		   },
-		   { from: path.resolve( __dirname, 'src/tile.jpg'),
-			to: path.resolve( __dirname, 'dist/tile.jpg')
-		   }
+			{ from: path.resolve( __dirname, 'src/Data'),
+			 to: path.resolve( __dirname, 'dist/Data')
+			}
 		  ]),
 		new MiniCssExtractPlugin({
 			filename: filename('css')

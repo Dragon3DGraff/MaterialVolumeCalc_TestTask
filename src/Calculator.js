@@ -62,13 +62,14 @@ class Calculator {
 
 		let facesInfo = this.getFacesInfo( object, materialsArray );
 
-
-
 		for (let img of Data.textures){
 
-			if ( img.image !== 'crossed-out.png' ) {
+			if ( img.price !== 0 ) {
 
-				let totalArea = facesInfo.filter( face => face.image === img.image)
+				let image = img.image;
+				image = image.replace( './Data/', '' );
+
+				let totalArea = facesInfo.filter( face => face.image === image)
 				.reduce( (sum, current) => sum + Math.floor( 1000 * current.area)/ 1000, 0);
 			
 				array.push({image: img.image, area: totalArea });
@@ -123,16 +124,18 @@ class Calculator {
 		}
 
 		materialsArea.areas.forEach( ( item ) => {
+
+			let id = item.image;
 	
-			let cell = document.getElementById( item.image );
+			let cell = document.getElementById( id );
 			let area = Math.trunc( 1000 * item.area ) / 1000
 			cell.innerHTML = area;
 	
-			let cellCost = document.getElementById( 'cost-' + item.image );
+			let cellCost = document.getElementById( 'cost-' + id );
 			let priceTexture = Data.textures.filter( elem => elem.image === item.image );
 	
-			cellCost.innerHTML = Math.trunc( 1000 * (+area * priceTexture[0].price) )/1000;
-		
+			cellCost.innerHTML = Math.trunc( 1000 * (+area * priceTexture[0].price) )/1000;	
+
 		})
 		
 	}

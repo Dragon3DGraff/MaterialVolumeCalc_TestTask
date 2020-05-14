@@ -23,7 +23,7 @@ scene.background = new THREE.Color('#bdd0e9');
 
 camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
 
-renderer = new THREE.WebGLRenderer();
+renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
@@ -50,13 +50,11 @@ function onWindowResize() {
 let geometry = new THREE.BoxBufferGeometry( 5, 5, 5, 1, 1, 1 );
 
 let loader = new THREE.TextureLoader();
-let texturesLoaded = await Promise.all( [
+let texturesLoaded = await Promise.all( 
 
-	loader.loadAsync( Data.textures[0].image ),
-	loader.loadAsync( Data.textures[1].image ),
-	loader.loadAsync( Data.textures[2].image )
+	Data.textures.map( ( item ) => loader.loadAsync( item.image ) )
 
-] );
+ );
 
 let materials = [
 
@@ -186,9 +184,6 @@ function animate () {
 
 	renderer.render( scene, camera );
 };
-
-
-
 
 function getScreenPoint(event) {
 	// event.preventDefault();
