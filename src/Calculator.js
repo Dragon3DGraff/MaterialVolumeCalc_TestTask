@@ -13,16 +13,16 @@ class Calculator {
 
 	}
 
-	getFaceArea ( face, object ){
+	getFaceArea ( face, geometryFromBufferGeometry ){
 
 		let aFace = face.a;
-		let aVertex = object.geometry.vertices[aFace];
+		let aVertex = geometryFromBufferGeometry.vertices[aFace];
 
 		let bFace = face.b;
-		let bVertex = object.geometry.vertices[bFace];
+		let bVertex = geometryFromBufferGeometry.vertices[bFace];
 
 		let cFace = face.c;
-		let cVertex = object.geometry.vertices[cFace];
+		let cVertex = geometryFromBufferGeometry.vertices[cFace];
 
 
 		let triangle = new THREE.Triangle( aVertex, bVertex, cVertex );
@@ -96,14 +96,16 @@ class Calculator {
 
 		let geometryFromBufferGeometry = new THREE.Geometry();
 
-		let facesArray = object.geometry.faces;
+		geometryFromBufferGeometry = geometryFromBufferGeometry.fromBufferGeometry( object.clone().geometry );
+
+		let facesArray = geometryFromBufferGeometry.faces;
 
 		let facesInfo = facesArray.map( function( item ){
 
 			let faceInfo = {};
 	
 			faceInfo.materialIndex = item.materialIndex;
-			faceInfo.area = calculator.getFaceArea ( item, object );
+			faceInfo.area = calculator.getFaceArea ( item, geometryFromBufferGeometry );
 			faceInfo.image = images[item.materialIndex];
 	
 			return faceInfo;
@@ -111,7 +113,6 @@ class Calculator {
 		});
 
 		return facesInfo;
-
 
 	}
 
