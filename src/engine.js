@@ -5,20 +5,30 @@
 import * as THREE from '../node_modules/three/build/three.module.js';
 import { OrbitControls } from "../node_modules/three/examples/jsm/controls/OrbitControls.js";
 import { calculator } from './Calculator.js';
-
+import { Data } from './Data.js'
 
 let MainScene = {};
+let controls;
+let renderer;
+let scene;
+let camera;
 
-let scene = new THREE.Scene( );
+init();
+animate();
+
+async function init() {
+	
+
+scene = new THREE.Scene( );
 scene.background = new THREE.Color('#bdd0e9');
 
-let camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
 
-let renderer = new THREE.WebGLRenderer();
+renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-let controls = new OrbitControls(camera, renderer.domElement);
+controls = new OrbitControls(camera, renderer.domElement);
 
 let raycaster = new THREE.Raycaster();
 
@@ -38,16 +48,27 @@ function onWindowResize() {
 
 }
 
-let geometry = new THREE.BoxGeometry( 5, 5, 5, 1, 1, 1 );
+let geometry = new THREE.BoxBufferGeometry( 5, 5, 5, 1, 1, 1 );
+
+let loader = new THREE.TextureLoader();
+let texturesLoaded = await Promise.all( [
+
+	loader.loadAsync( Data.textures[0].image ),
+	loader.loadAsync( Data.textures[1].image ),
+	loader.loadAsync( Data.textures[2].image )
+
+] );
+
+// console.log( texturesLoaded )
 
 let materials = [
 
-	new THREE.MeshBasicMaterial( { color: new THREE.Color( 'lightgrey' )} ),
-	new THREE.MeshBasicMaterial( { color: new THREE.Color( 'lightgrey' )} ),
-	new THREE.MeshBasicMaterial( { color: new THREE.Color( 'lightgrey' ) } ),
-	new THREE.MeshBasicMaterial( { color: new THREE.Color( 'lightgrey' ) } ),
-	new THREE.MeshBasicMaterial( { color: new THREE.Color( 'lightgrey' ) } ),
-	new THREE.MeshBasicMaterial( { color: new THREE.Color( 'lightgrey' ) } )
+	new THREE.MeshBasicMaterial( {  map: texturesLoaded[0] } ),
+	new THREE.MeshBasicMaterial( {  map: texturesLoaded[1] } ),
+	new THREE.MeshBasicMaterial( {  map: texturesLoaded[2] } ),
+	new THREE.MeshBasicMaterial( {  map: texturesLoaded[2] } ),
+	new THREE.MeshBasicMaterial( {  map: texturesLoaded[2] } ),
+	new THREE.MeshBasicMaterial( {  map: texturesLoaded[2] } )
 
 ]
 
@@ -62,9 +83,6 @@ let edges = new THREE.EdgesGeometry( cube.geometry );
 var line = new THREE.LineSegments( edges, new THREE.LineBasicMaterial( { color: 0xffffff } ) );
 line.name = 'wire';
 cube.add( line );
-
-
-
 
 
 camera.position.z = 5;
@@ -91,23 +109,43 @@ function onDocumentMouseClick( event ) {
 
 			if ( picName !== 'crossed-out.png' ) {
 
-				texture = new THREE.TextureLoader().load( currentTexture.img );
+				let texture1 = texturesLoaded.filter( ( item ) => ((item.image.currentSrc).split('/')).pop() === picName );
+				// console.log( texture1[0] )
+
+
+				//  new THREE.TextureLoader().load( currentTexture.img, ( texture ) =>{
+
+					intersects[0].object.material[ faceIndex ] = new THREE.MeshBasicMaterial( { map: texture1[0] } );
+					// materials[ faceIndex ].map = texture;
+					// materials[ faceIndex ].dispose();
+					// materials[ faceIndex ] = new THREE.MeshBasicMaterial( { map: texture1[0] } );
+					// console.log( texture )
+
+					materials[ faceIndex ].userData = picName;
+
+					calculator.materialsArea.areas = calculator.getMaterialsArea( materials, cube );
+
+					calculator.fillTable ( calculator.materialsArea );
+
+				// } );
 				// texture.wrapS = THREE.RepeatWrapping;
 				// texture.wrapT = THREE.RepeatWrapping;
 				// texture.repeat.set( 4, 4 );
-				materials[ faceIndex ] = new THREE.MeshBasicMaterial( { map: texture } );
-				materials[ faceIndex ].userData = picName;
+				// materials[ faceIndex ] = new THREE.MeshBasicMaterial( { map: texture } );
+				
 			}
 			else {
 
 				materials[ faceIndex ] = new THREE.MeshBasicMaterial( { color: new THREE.Color( 'lightgrey' ) } );
 				materials[ faceIndex ].userData = {};
 
+				calculator.materialsArea.areas = calculator.getMaterialsArea( materials, cube );
+
+				calculator.fillTable ( calculator.materialsArea );
+
 			}
 
-			calculator.materialsArea.areas = calculator.getMaterialsArea( materials, cube );
 
-			calculator.fillTable ( calculator.materialsArea );
 
 		}
 
@@ -163,16 +201,18 @@ MainScene.scene = scene;
 MainScene.cube = cube;
 MainScene.currentTexture = currentTexture;
 MainScene.materials = materials;
+}
 
 
-let animate = function () {
+
+function animate () {
 	requestAnimationFrame( animate );
 	controls.update();
 
 	renderer.render( scene, camera );
 };
 
-animate();
+
 
 
 function getScreenPoint(event) {

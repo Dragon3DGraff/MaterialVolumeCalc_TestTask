@@ -156,10 +156,12 @@ Data.textures.forEach( (item ) => {
 
 		MainScene.currentTexture.img = image.src;
 
-		let selected = document.getElementById( 'selectedTexture' );		
+		let selected = document.getElementById( 'selectedTexture' );
 		if ( selected ){
-		selected.style.borderColor = 'black';
-		selected.id = 'deselectedTexture';
+
+			selected.style.borderColor = 'black';
+			selected.id = 'deselectedTexture';
+
 		}
 
 		image.style.borderColor = 'rgb(220, 20, 60)';
@@ -231,15 +233,46 @@ function exportGLTF(){
 
 	let gltfExporter = new GLTFExporter();
 
-	gltfExporter.parse( MainScene.scene, function ( result ) {
+	// gltfExporter.parse( MainScene.scene, function ( result ) {
 
-		let gltf = JSON.stringify( result, null, 2 );
+		// let gltf = JSON.stringify( result, null, 2 );
 
-		let blob = new Blob( [gltf], {type: 'text/plain'});
+		// let blob = new Blob( [result], {type: 'text/plain'});
+		// let blob = new Blob( [result], {type: 'application/octet-stream'});
 
-		saveFile( blob , 'Scene', 'gltf' );
 
-	} );
+		// saveFile( blob , 'Scene', 'glb' );
+
+	// }, { binary: true } );
+
+
+	//==============================
+
+	gltfExporter.parse( MainScene.cube, function ( result ) {
+
+		saveArrayBuffer( result, 'scene.glb' );
+
+	}, { binary: true } );
+
+	var link = document.createElement( 'a' );
+link.style.display = 'none';
+document.body.appendChild( link );
+
+function save( blob, filename ) {
+
+	link.href = URL.createObjectURL( blob );
+	link.download = filename;
+	link.click();
+
+}
+
+
+
+function saveArrayBuffer( buffer, filename ) {
+
+	save( new Blob( [ buffer ], { type: 'application/octet-stream' } ), filename );
+
+}
 
 }
 
