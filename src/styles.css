@@ -1,240 +1,185 @@
 body {
+  position: fixed;
+  width: 100%;
+  height: 100%;
 
-	position: fixed;
-	width: 100%;
-	height: 100%;
-
-	padding: 0px;
-	margin: 0px;
-
+  padding: 0px;
+  margin: 0px;
 }
 
 .canvas {
-
-	padding: 0px;
-	margin: 0px;
-	position:fixed;
-	top: 0px;
-	left: 0px;
-	width: 100%;
-	height: 100%;
-
+  padding: 0px;
+  margin: 0px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
 }
-
 
 .leftMenu {
-
-
-	padding: 0px;
-	margin: 0px;
-	position: absolute;
-	z-index: 200;
-	width: 200px;
-	height: 100%;
-	background-color:rgba(251, 254, 255, 1);
-	top: 0px;
-
+  padding: 0px;
+  margin: 0px;
+  position: absolute;
+  z-index: 200;
+  width: 200px;
+  height: 100%;
+  background-color: rgba(251, 254, 255, 1);
+  top: 0px;
 }
 
-.title{
+.title {
+  font-size: 0.8rem;
 
-	font-size: 0.8rem;
-
-	width: 100%;
-	height: 25px;
-	text-align: center;
-	padding-top: 5px;
-
-
+  width: 100%;
+  height: 25px;
+  text-align: center;
+  padding-top: 5px;
 }
 
-.inputClass{
+.inputClass {
+  position: relative;
 
-	position: relative;
-
-	left: 2px;
-	padding: 0px;
-	margin: 0px;
-	width: 93%;
+  left: 2px;
+  padding: 0px;
+  margin: 0px;
+  width: 93%;
 }
 
 .exportButtonDiv {
+  display: inline;
 
-	display: inline;
-
-	/* position: absolute; */
-	/* bottom: 20px; */
-	/* left: 0px; */
-
+  /* position: absolute; */
+  /* bottom: 20px; */
+  /* left: 0px; */
 }
 
-.exportButton{
-	width: 50%;
+.exportButton {
+  width: 50%;
 }
 
 .textureSelect {
-
-	position: absolute;
-	display: flex;
-	/* width: 200px; */
-	/* height: 100px; */
-	background-color: rgb(5, 5, 5);
-	bottom: 20px;
-	left: 200px;
+  position: absolute;
+  display: flex;
+  /* width: 200px; */
+  /* height: 100px; */
+  background-color: rgb(5, 5, 5);
+  bottom: 20px;
+  left: 200px;
 }
 
 .imgClass {
-
-	height: 50px;
-	width: 50px;	
-	padding: 0px;
-	margin: 0px;
-	border-style: solid;
-	border-width: 2px;
-	border-color: black;
-
+  height: 50px;
+  width: 50px;
+  padding: 0px;
+  margin: 0px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
 }
 
 .imgClass:hover {
-
-	border-color: rgb(220, 20, 60);
-
+  border-color: rgb(220, 20, 60);
 }
 
-.labelClass{
+.labelClass {
+  font-size: 0.8rem;
 
-	font-size: 0.8rem;
-
-	font-weight: bold;
-
+  font-weight: bold;
 }
 
 .tableClass {
-
-	border-collapse: collapse;
-	width: 100%;
-	table-layout: fixed;
-
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
 }
 
-.imgTable{
-
-	height: 30px;
-	width: 30px;	
-	padding: 0px;
-	margin: 0px;
-	border-style: solid;
-	border-width: 1px;
-	border-color: black;
-
+.imgTable {
+  height: 30px;
+  width: 30px;
+  padding: 0px;
+  margin: 0px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
 }
 
 .thClass {
-
-	height: 18px;
-	font-size: 0.6rem;
-	padding: 3px;
-	margin: 0px;
-	border-style: solid;
-	border-width: 1px;
-	background-color: silver;
+  height: 18px;
+  font-size: 0.6rem;
+  padding: 3px;
+  margin: 0px;
+  border-style: solid;
+  border-width: 1px;
+  background-color: silver;
 }
 
 .tdClass {
+  border-style: solid;
+  border-width: 1px;
+  font-size: 11px;
+  /* align-content: center; */
+  vertical-align: middle;
 
-	border-style: solid;
-	border-width: 1px;
-	font-size: 11px;
-	/* align-content: center; */
-	vertical-align: middle;
-	
-	margin: 0px;
-	padding: 0px;
-	height: 25px;
-	text-align: center;
+  margin: 0px;
+  padding: 0px;
+  height: 25px;
+  text-align: center;
 }
 
 @media (max-width: 400px), (max-height: 330px) {
+  .textureSelect {
+    display: grid;
+    left: 100px;
+  }
 
-	
-.textureSelect {
+  .leftMenu {
+    width: 100px;
+  }
 
-	display: grid;
-	left: 100px;
+  .thClass {
+    font-size: 0.3rem;
+    height: 8px;
+  }
 
-}
+  .imgClass {
+    height: 30px;
+    width: 30px;
+  }
 
+  .labelClass {
+    display: inline;
 
-.leftMenu {
+    font-size: 5px;
+  }
 
-	width: 100px;
+  .title {
+    font-size: 7px;
+    height: 10px;
+  }
 
-}
+  .imgTable {
+    height: 18px;
+    width: 18px;
+  }
 
-.thClass {
+  .tdClass {
+    font-size: 11px;
+    height: 18px;
+  }
 
-	font-size: 0.3rem;
-	height: 8px;
-
-}
-
-.imgClass {
-
-	height: 30px;
-	width: 30px;
-
-}
-
-
-.labelClass{
-
-	display: inline;
-
-	font-size: 5px;
-
-}
-
-.title{
-
-	font-size: 7px;
-	height: 10px;
-
-}
-
-.imgTable{
-
-	height: 18px;
-	width: 18px;	
-
-}
-
-.tdClass {
-
-	font-size: 11px;
-	height: 18px;
-
-}
-
-.formInput {
-
-	display: flex;
-	width: 100%;
-
-}
-.inputDiv {
-
-	
-	display: grid;
-	text-align: center;
-
-	
-}
-.inputClass{
-
-	position: relative;
-	font-size: 0.5rem;
-	height: 9px;
-	width: 75%;
-}
-
+  .formInput {
+    display: flex;
+    width: 100%;
+  }
+  .inputDiv {
+    display: grid;
+    text-align: center;
+  }
+  .inputClass {
+    position: relative;
+    font-size: 0.5rem;
+    height: 9px;
+    width: 75%;
+  }
 }
